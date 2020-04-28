@@ -19,7 +19,7 @@ import (
 func main() {
 	gocron.Start()
 	s := gocron.NewScheduler()
-	gocron.Every(10).Minute().Do(sendWord)
+	gocron.Every(10).Minutes().Do(sendWord)
 	<-s.Start()
 }
 
@@ -59,7 +59,7 @@ func read() string{
 	rand.Seed(time.Now().UnixNano())
 	lineNumber := rand.Intn( lastLine - 2) + 1
 
-	file, err := os.Open("./words")
+	file, err := os.Open("/opt/word-notify/words")
 	if err != nil {
         log.Fatal(err)
 	}
@@ -75,7 +75,7 @@ func read() string{
 }
 
 func write(data string) {
-    f, err := os.OpenFile("./words", os.O_APPEND|os.O_WRONLY, 0644)
+    f, err := os.OpenFile("/opt/word-notify/words", os.O_APPEND|os.O_WRONLY, 0644)
     if err != nil {
         return
 	}
@@ -93,7 +93,7 @@ func write(data string) {
 }
 
 func fileEndOf() int {
-	file, err := os.Open("./words")
+	file, err := os.Open("/opt/word-notify/words")
 	if err != nil {
         log.Fatal(err)
 	}
@@ -111,6 +111,5 @@ func fileEndOf() int {
 		case err == io.EOF:
             return count
     	}
-
 	}
 }

@@ -1,0 +1,8 @@
+[Unit]
+Description=word-notify
+
+[Service]
+ExecStart= /opt/word-notify/word-notify
+
+[Install]
+WantedBy=multi-user.target
