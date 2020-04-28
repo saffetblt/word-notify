@@ -1,0 +1,2 @@
+# word-notify
+word reminder
