@@ -68,10 +68,9 @@ func read() string{
 	for sc.Scan() {
         lineNumber++
         if lastLine == lineNumber {
-            // you can return sc.Bytes() if you need output in []bytes
             return sc.Text()
         }
-    }
+	}
 	return ""
 }
 
@@ -99,7 +98,6 @@ func fileEndOf() int {
         log.Fatal(err)
 	}
 	defer file.Close()
-
 
 	buf := make([]byte, 32*1024)
     count := 0
