@@ -19,7 +19,7 @@ import (
 func main() {
 	gocron.Start()
 	s := gocron.NewScheduler()
-	gocron.Every(10).Minutes().Do(sendWord)
+	gocron.Every(1).Minutes().Do(sendWord)
 	<-s.Start()
 }
 
@@ -32,7 +32,9 @@ func sendWord() {
 
 func inputBox() {
 	out, _ := exec.Command("zenity", "--entry", "--text", "Please Enter a English Word").Output()
-	write(string(out))
+	if string(out) != "" {
+		write(string(out))
+	}
 }
 
 func notification(word, translate string) {
