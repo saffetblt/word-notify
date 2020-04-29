@@ -10,8 +10,7 @@ import (
 	"math/rand"
 	"time"
 	"bufio"
-	"strings"
-	
+	//"strings"
 	"github.com/claudiu/gocron"
 	"github.com/bregydoc/gtranslate"
 )
@@ -19,11 +18,11 @@ import (
 func main() {
 	gocron.Start()
 	s := gocron.NewScheduler()
-	gocron.Every(1).Minutes().Do(sendWord)
+	gocron.Every(1).Seconds().Do(sendWord)
 	<-s.Start()
 }
 
-func sendWord() {
+func sendWord() {	
 	inputBox()
 	word := read()
 	translated := translate("en", "tr", word)
@@ -77,11 +76,12 @@ func read() string{
 }
 
 func write(data string) {
+	fmt.Println(data)
     f, err := os.OpenFile("/opt/word-notify/words", os.O_APPEND|os.O_WRONLY, 0644)
     if err != nil {
         return
 	}
-    _, err = fmt.Fprintln(f, strings.TrimSuffix(data, "\n"))
+    _, err = fmt.Fprintln(f, data)
     if err != nil {
         fmt.Println(err)
                 f.Close()
